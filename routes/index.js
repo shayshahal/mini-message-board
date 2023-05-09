@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const messages = [
 	{
@@ -21,8 +21,17 @@ const messages = [
 ];
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 	res.render('index', { title: 'Mini message board', messages: messages });
+});
+
+router.post('/new', (req, res) => {
+	messages.push({
+		user: req.body.user,
+		text: req.body.text,
+		added: new Date(),
+	});
+	res.redirect('/');
 });
 
 module.exports = router;
